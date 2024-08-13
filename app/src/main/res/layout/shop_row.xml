@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="product"
+            type="com.example.shoppingcartmvvm.models.Product" />
+        <variable
+            name="shopInterface"
+            type="com.example.shoppingcartmvvm.adapters.ShopListAdapter.ShopInterface" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{() -> shopInterface.onItemClick(product)}"
+        >
+
+        <ImageView
+            android:productImage="@{product.imageUrl}"
+            android:id="@+id/productImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/iphone11" />
+
+        <TextView
+            android:id="@+id/productNametextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@{product.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productImageView"
+            tools:text="@tools:sample/cities" />
+
+        <TextView
+
+            android:id="@+id/pricetextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="@{`$ `+ String.valueOf(product.price)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productNametextView"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/availableTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="@{product.Available ? `Available`:`Out of stock`}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@{product.Available ? @color/Voilet:@color/Red}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pricetextView"
+            tools:text="@tools:sample/first_names" />
+
+        <Button
+            android:id="@+id/AddToCardButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="Add to Cart"
+            android:onClick="@{() -> shopInterface.addItem(product)}"
+            android:enabled="@{product.available}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/availableTextView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
